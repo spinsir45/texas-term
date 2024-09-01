@@ -9,9 +9,5 @@ fn main() {
         viewport: viewport_builder,
         ..Default::default()
     };
-    let texas_term = eframe::run_native("TexasTerm", native_options, Box::new(|cc| Ok(Box::new(TexasTerm::new(cc)))));
-    match texas_term {
-        Ok(_) => println!("we good"),
-        Err(_) => println!("not good"),
-    }
+    let _texas_term = eframe::run_native("TexasTerm", native_options, Box::new(|cc| Ok(Box::new(TexasTerm::new(cc)))));
 }
