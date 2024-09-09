@@ -1,8 +1,12 @@
 use eframe::Storage;
 
 pub struct TexasTerm {
-    transparency: f32,
-    text_size: f32,
+    pub transparency: f32,
+    pub text_size: f32,
+
+    // Settings Page
+    pub open_settings_window: bool,
+    pub temp_text_size: f32,
 }
 
 impl TexasTerm {
@@ -15,7 +19,7 @@ impl TexasTerm {
 
         // Update values
         let mut app: TexasTerm = Self::default();
-        if let Some(num) = text_size {app.text_size = num;}
+        if let Some(num) = text_size {app.text_size = num; app.temp_text_size = num;}
         if let Some(num) = transparency {app.transparency = num;}
         app
     }
@@ -26,6 +30,10 @@ impl Default for TexasTerm {
         TexasTerm {
             transparency: 1.0,
             text_size: 1.0,
+
+            // Settings
+            open_settings_window: false,
+            temp_text_size: 1.0,
         }
     }
 }
@@ -42,16 +50,15 @@ impl eframe::App for TexasTerm {
 
         egui::CentralPanel::default().frame(egui::Frame::none()).show(ctx, |ui| {
             ui.label("Hello, world!");
-            let button = ui.button("push me");
-            if button.clicked() {
-                self.transparency = 0.0;
-            }
+
+            // Other windows
+            self.settings_window(ctx);
         });
 
         egui::TopBottomPanel::bottom("tab_area").show(ctx, |ui| {
-            let settings_btn = ui.button("settings");
+            let settings_btn = ui.button("⚙️");
             if settings_btn.clicked() {
-                println!("opening settings");
+                self.open_settings_window = true;
             }
         });
     }

@@ -1,5 +1,4 @@
 mod frontend;
-
 use frontend::app::TexasTerm;
 
 fn main() {
